@@ -1,20 +1,15 @@
-'use strict';
+"use strict";
 
 module.exports = {
-  /**
-   * An asynchronous register function that runs before
-   * your application is initialized.
-   *
-   * This gives you an opportunity to extend code.
-   */
-  register(/*{ strapi }*/) {},
+  register({ strapi }) {
+    strapi.documents.use(async (ctx, next) => {
+      if (ctx.uid === "api::enrollment.enrollment" && ctx.action === "create") {
+        if (!ctx.params.data.progress) {
+          ctx.params.data.progress = 0;
+        }
+      }
 
-  /**
-   * An asynchronous bootstrap function that runs before
-   * your application gets started.
-   *
-   * This gives you an opportunity to set up your data model,
-   * run jobs, or perform some special logic.
-   */
-  bootstrap(/*{ strapi }*/) {},
+      return next();
+    });
+  },
 };

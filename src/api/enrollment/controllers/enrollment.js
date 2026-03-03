@@ -13,15 +13,12 @@ module.exports = createCoreController(
         return ctx.badRequest("Student and Course are required");
       }
 
-      const existing = await strapi.entityService.findMany(
-        "api::enrollment.enrollment",
-        {
-          filters: {
-            student: student,
-            course: course,
-          },
-        }
-      );
+      const existing = await strapi.documents("api::enrollment.enrollment").findMany({
+        filters: {
+          student: student,
+          course: course,
+        },
+      });
 
       console.log(existing);
       if (existing.length > 0) {

@@ -1,29 +1,29 @@
-import type { Attribute, Schema } from '@strapi/strapi';
+import type { Schema, Struct } from '@strapi/strapi';
 
-export interface TextBlockTextBlock extends Schema.Component {
+export interface TextBlockTextBlock extends Struct.ComponentSchema {
   collectionName: 'components_text_block_text_blocks';
   info: {
     displayName: 'Text Block';
   };
   attributes: {
-    body: Attribute.Blocks;
-    heading: Attribute.String;
+    body: Schema.Attribute.Blocks;
+    heading: Schema.Attribute.String;
   };
 }
 
-export interface VideoBlockVideoBlock extends Schema.Component {
+export interface VideoBlockVideoBlock extends Struct.ComponentSchema {
   collectionName: 'components_video_block_video_blocks';
   info: {
     displayName: 'Video Block';
   };
   attributes: {
-    videoUrl: Attribute.Text;
+    videoUrl: Schema.Attribute.Text;
   };
 }
 
-declare module '@strapi/types' {
-  export module Shared {
-    export interface Components {
+declare module '@strapi/strapi' {
+  export module Public {
+    export interface ComponentSchemas {
       'text-block.text-block': TextBlockTextBlock;
       'video-block.video-block': VideoBlockVideoBlock;
     }
